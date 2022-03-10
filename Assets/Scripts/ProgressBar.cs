@@ -39,7 +39,7 @@ public class ProgressBar : MonoBehaviour
         GetCurrentFill();
     }
 
-    private void GetCurrentFill()
+    public void GetCurrentFill()
     {
         float currentOffset = current - minimum;
         float maximumOffset = maximum - minimum;

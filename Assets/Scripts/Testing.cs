@@ -9,12 +9,7 @@ public class Testing : MonoBehaviour
     private void Awake()
     {
         LevelSystem levelSystem = new LevelSystem();
-        Debug.Log(levelSystem.Level);
-        levelSystem.AddExperience(50);
-        Debug.Log(levelSystem.Level);
-        levelSystem.AddExperience(60);
-        Debug.Log(levelSystem.Level);
-
         _levelWindow.SetLevelSystem(levelSystem);
+        _levelWindow.Initialize();
     }
 }
