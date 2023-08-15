@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -26,26 +23,36 @@ public class ProgressBar : MonoBehaviour
     }
 #endif
 
-    public int minimum;
-    public int maximum;
-    public int current;
-    public Image mask;
-    public Image fill;
-    public Color color;
+    [SerializeField] private int maximum;
+    [SerializeField] private int current;
+    [SerializeField] private int minimum;
+    [SerializeField] private Image mask;
+    [SerializeField] private Image fill;
+    [SerializeField] private Color color;
 
-    // Start is called before the first frame update
     void Start()
     {
         GetCurrentFill();
     }
 
-    public void GetCurrentFill()
+    public void SetMaximum(int maximum)
+    {
+        this.maximum = maximum;
+        GetCurrentFill();
+    }
+
+    public void SetCurrent(int current)
+    {
+        this.current = current;
+        GetCurrentFill();
+    }
+
+    private void GetCurrentFill()
     {
         float currentOffset = current - minimum;
         float maximumOffset = maximum - minimum;
         float fillAmount = currentOffset / maximumOffset;
         mask.fillAmount = fillAmount;
-
         fill.color = color;
     }
 }

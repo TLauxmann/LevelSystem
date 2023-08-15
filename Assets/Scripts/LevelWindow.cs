@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,41 +21,38 @@ public class LevelWindow : View
         _lowXPButton.onClick.AddListener(() => _levelSystem?.AddExperience(5));
         _middleXPButton.onClick.AddListener(() => _levelSystem?.AddExperience(50));
         _highXPButton.onClick.AddListener(() => _levelSystem?.AddExperience(500));
-        _levelProgressBar.maximum = _levelSystem.GetExpNeededToLevel();
+
+        _levelProgressBar.SetMaximum(_levelSystem.GetExpNeededToLevel());
     }
     
-    private void SetExperienceBarSize()
-    {
-        _levelProgressBar.current = _levelSystem.LevelExperience;
-        _levelProgressBar.maximum = _levelSystem.GetExpNeededToLevel();
-        _levelProgressBar.GetCurrentFill();
-    }
 
     public void SetLevelSystem(LevelSystem levelSystem)
     {
-        // Set the LevelSystem object
         _levelSystem = levelSystem;
 
-        // Update the starting values
         SetLevelNumber();
         SetExperienceBarSize();
         SetExperienceText();
 
-        // Subscribe to the changed events
         levelSystem.OnExperienceChanged += LevelSystem_OnExperienceChanged;
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
-    }
-    private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
-    {
-        // Level Changed, update text
-        SetLevelNumber();
     }
 
     private void LevelSystem_OnExperienceChanged(object sender, EventArgs e)
     {
-        // Experience changed, update bar size
         SetExperienceBarSize();
         SetExperienceText();
+    }
+
+    private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
+    {
+        SetLevelNumber();
+    }
+
+    private void SetExperienceBarSize()
+    {
+        _levelProgressBar.SetCurrent(_levelSystem.LevelExperience);
+        _levelProgressBar.SetMaximum(_levelSystem.GetExpNeededToLevel());
     }
 
     private void SetExperienceText()
@@ -69,8 +64,9 @@ public class LevelWindow : View
 
     private void SetLevelNumber()
     {
-        //Level starts at 0
-        _currentLevelText.text = "" + (_levelSystem.Level + 1);
+        _currentLevelText.text = "" + _levelSystem.Level;
     }
+
+
 
 }
