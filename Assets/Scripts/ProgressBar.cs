@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -51,8 +52,8 @@ public class ProgressBar : MonoBehaviour
     {
         float currentOffset = current - minimum;
         float maximumOffset = maximum - minimum;
-        float fillAmount = currentOffset / maximumOffset;
-        mask.fillAmount = fillAmount;
+        float fillAmount = maximumOffset == 0 ? 0 : currentOffset / maximumOffset;
+        mask.fillAmount = Math.Min(fillAmount, 1);
         fill.color = color;
     }
 }
